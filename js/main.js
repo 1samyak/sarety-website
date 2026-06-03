@@ -2,10 +2,16 @@
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 
-if (hamburger) {
+if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
+        // Prevent body scroll when mobile menu is open
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
     });
 
     // Close menu when a link is clicked
@@ -13,6 +19,7 @@ if (hamburger) {
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
         });
     });
 }
@@ -20,15 +27,15 @@ if (hamburger) {
 // Back to Top Button
 const backToTopButton = document.getElementById('backToTop');
 
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        backToTopButton.classList.add('show');
-    } else {
-        backToTopButton.classList.remove('show');
-    }
-});
-
 if (backToTopButton) {
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    });
+
     backToTopButton.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
@@ -127,21 +134,9 @@ document.addEventListener('DOMContentLoaded', setActiveLink);
 
 // Window resize handler for responsive behavior
 window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
+    if (window.innerWidth > 768 && hamburger && navMenu) {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
-    }
-});
-
-// Prevent body scroll when mobile menu is open
-const toggleBodyScroll = (disable) => {
-    if (disable) {
-        document.body.style.overflow = 'hidden';
-    } else {
         document.body.style.overflow = 'auto';
     }
-};
-
-hamburger.addEventListener('click', () => {
-    toggleBodyScroll(navMenu.classList.contains('active'));
 });
