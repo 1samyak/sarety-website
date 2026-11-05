@@ -1,0 +1,1 @@
+SARETY editorial corporate website assets and source are being added here as an isolated corporate-site package. The current root GitHub Pages site remains unchanged.
